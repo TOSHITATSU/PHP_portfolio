@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOSHITATSU紹介</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@1,300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="main">
+      <nav>
+        <div class="logo-area">
+          <img src="./images/logo.png" class="logo" />
+          <h2>TOSHITATSU_YOSHIDA<br>
+          My Portfolio site</h2>
+        </div>
+
+        <div class="nav-links">
+          <ul>
+            <a href="./video/video.html"><li>Video_LP</li></a>
+            <a href="./snow/snow.html"><li>Snow_LP</li></a>
+            <a href="./maditation/index.html"><li>ASMR</li></a>
+            <a href="https://github.com/TOSHITATSU"><li>GitHub</li></a>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="infomation">
+        <div class="overlay"></div>
+        <img src="./images/pc.png" class="mobile" />
+        <div id="circle">
+          <div class="feature one">
+            <a href="./staff/stf_list.php"><img src="./images/camera.png" alt="" /></a>
+            <div>
+              <h1>PHP 機能1</h1>
+              <p>スタッフ管理ツール</p>
+            </div>
+          </div>
+          <div class="feature two">
+            <a href="./item/item_list.php"><img src="./images/processor.png" alt="" /></a>
+            <div>
+              <h1>PHP 機能2</h1>
+              <p>商品管理機能ツール</p>
+            </div>
+          </div>
+          <div class="feature three">
+            <a href="./join/insert.php"><img src="./images/display.png" alt="" /></a>
+            <div>
+              <h1>PHP 機能3</h1>
+              <p>内部外部結合と検索機能</p>
+            </div>
+          </div>
+          <div class="feature four">
+            <a href="./sign_login/sign_login.html"><img src="./images/battery.png" alt="" /></a>
+            <div>
+              <h1>PHP 機能4</h1>
+              <p>会員登録とログイン機能</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="control">
+        <img src="./images/arrow.png" id="upBtn" />
+        <h3>ポートフォリオ選択<br>
+        アイコンクリックでPHP機能へ</h3>
+        <img src="./images/arrow.png" id="downBtn" />
+      </div>
+    </div>
+
+    <script>
+      let circle = document.getElementById("circle");
+      let upBtn = document.getElementById("upBtn");
+      let downBtn = document.getElementById("downBtn");
+
+      let rotateValue = circle.style.transform;
+      let rotateSum;
+
+      upBtn.onclick = function () {
+        /* 時計回りに90°回転させる */
+        rotateSum = rotateValue + "rotate(-90deg)";
+        circle.style.transform = rotateSum;
+        rotateValue = rotateSum;
+      };
+      downBtn.onclick = function () {
+        /* 時計回りに90°回転させる */
+        rotateSum = rotateValue + "rotate(90deg)";
+        circle.style.transform = rotateSum;
+        rotateValue = rotateSum;
+      };
+    </script>
+  </body>
+</html>
