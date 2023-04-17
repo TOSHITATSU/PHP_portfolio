@@ -29,44 +29,21 @@ $_SESSION['login_id'] = $id;
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>会員様専用ページ</title>
-  <style>
-      .container {
-        background-color: #333;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 50px;
-        margin: 0 auto;
-        max-width: 800px;
-      }
-      h1 {
-        font-size: 3rem;
-        margin-bottom: 30px;
-      }
-      p {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-      }
-      a {
-        color: #fff;
-        text-decoration: none;
-        transition: 0.3s;
-      }
-      a:hover {
-        color: #f1c40f;
-      }
-  </style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>ようこそ、<?php echo $name; ?>さん</h1>
-    <p>会員専用ページです。</p>
-    <p><a href="member_disp.php">アカウント情報参照</a></p>
-    <p><a href="logout.php">ログアウト</a></p>
+  <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+      <div class="container text-center">
+          <h1>ようこそ、<?php echo $name; ?>さん</h1>
+          <p>会員専用ページです。</p>
+          <p><a href="member_disp.php" class="btn btn-primary">アカウント情報参照</a></p>
+          <p><a href="logout.php" class="btn btn-danger">ログアウト</a></p>
+      </div>
   </div>
-
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

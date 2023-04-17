@@ -15,13 +15,8 @@ $tel = $_POST['tel'];
 $pass = $_POST['pass'];
 
 try {
-    $config = require_once 'config.php';
-    $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8";
-    $options = array(
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false,
-    );
-    $pdo = new PDO($dsn, $config['user'], $config['dbpass'], $options);
+    require_once 'config.php';
+    $pdo = DatabaseConnection::getConnection();
     // メールアドレスがすでに登録済みかどうかを確認する
     $stmt = $pdo->prepare('SELECT COUNT(*) FROM `members` WHERE `email` = :email');
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -57,41 +52,25 @@ try {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>会員登録完了画面</title>
-    <style>
-        .result {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 20px;
-        text-align: center;
-        }
-        h1 {
-        font-size: 24px;
-        margin-bottom: 10px;
-        }
-        p {
-        font-size: 18px;
-        margin-bottom: 10px;
-        }
-        a {
-        color: #007bff;
-        text-decoration: none;
-        font-size: 18px;
-        }
-        a:hover {
-        text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
-    <div class="result">
-        <h1>会員登録完了</h1>
-        <p>「<?php echo $name; ?>」</p>
-        <p>「<?php echo $email; ?>」</p>
-        <p>「<?php echo $tel; ?>」</p>
-        <p>以上で登録完了しました</p>
-        <a href="sign_login.html">トップページに戻る</a>
+    <div class="container d-flex justify-content-center">
+        <div class="card mt-5">
+            <div class="card-header">
+                <h1 class="text-center">会員登録完了</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text">「<?php echo $name; ?>」</p>
+                <p class="card-text">「<?php echo $email; ?>」</p>
+                <p class="card-text">「<?php echo $tel; ?>」</p>
+                <p class="card-text">以上で登録完了しました</p>
+                <a href="sign_login.html" class="btn btn-primary">トップページに戻る</a>
+            </div>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

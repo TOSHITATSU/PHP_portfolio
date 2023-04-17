@@ -44,15 +44,10 @@ if (count($errors)) {
 
 $email = $_POST['email'];
 $pass = $_POST['pass'];
-$config = require_once 'config.php';
-$dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8";
-$options = array(
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_EMULATE_PREPARES => false,
-);
+require_once 'config.php';
 
 try {
-    $pdo = new PDO($dsn, $config['user'], $config['dbpass'], $options);
+    $pdo = DatabaseConnection::getConnection();
     // メールアドレスからユーザー情報を取得
     $stmt = $pdo->prepare('SELECT * FROM `members` WHERE `email`=:email');
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);

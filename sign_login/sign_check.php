@@ -46,7 +46,7 @@ else:
     $errors[]="確認のためのパスワードを入力してください";
 endif;
 if(!preg_match("/^[ぁ-んァ-ヶー々一-龠０-９a-zA-Z0-9]+$/u",$name)){
-    $errors[]="スタッフ名を正しく入力して下さい";
+    $errors[]="氏名を正しく入力して下さい";
 }
 if(!preg_match("/^\d{2,5}-?\d{1,4}-?\d{4}$/", $tel)){
     $errors[] = "電話番号を正しく入力して下さい";
@@ -59,9 +59,6 @@ if(!preg_match("/^[a-zA-Z0-9]{6,16}$/",$pass) || !preg_match("/^[a-zA-Z0-9]{6,16
 }
 if($_POST['pass'] !== $_POST['pass2']) {
     $errors[]="パスワードが一致しません";
-}
-if(!preg_match("/^[a-zA-Z0-9]{6,16}$/",$pass) || !preg_match("/^[a-zA-Z0-9]{6,16}$/",$pass2)){
-    $errors[]="パスワードを正しく入力して下さい";
 }
 //エラーの数だけ表示する
 if (count($errors)) {
@@ -80,60 +77,34 @@ if (count($errors)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>会員登録確認</title>
-    <style>
-        .container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        text-align: center;
-        }
-        h1 {
-        font-size: 36px;
-        margin-bottom: 20px;
-        }
-        p {
-        font-size: 24px;
-        margin-bottom: 10px;
-        }
-        form {
-        display: inline-block;
-        margin-top: 20px;
-        }
-        input[type="button"], input[type="submit"] {
-        font-size: 20px;
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out;
-        }
-        input[type="button"]:hover, input[type="submit"]:hover {
-        background-color: #2E8B57;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>会員登録確認</h1>
-        <p>氏名：「<?php echo $name;?>」さん</p>
-        <p>メールアドレス：「<?php echo $email;?>」</p>
-        <p>電話番号：「<?php echo $tel;?>」</p>
-        <p>この内容で登録してもよろしいですか？</p>
-        <form action="sign_done.php" method="post">
-            <input type="hidden" name="name" value="<?php echo $name; ?>">
-            <input type="hidden" name="email" value="<?php echo $email; ?>">
-            <input type="hidden" name="tel" value="<?php echo $tel; ?>">
-            <input type="hidden" name="pass" value="<?php echo $pass; ?>">
-            <input type="hidden" name="token" value=<?php echo $_POST['token']; ?>>
-            <input type="submit" value="登録">
-            <p><a href="sign.php">戻る</a></p>
-        </form>
+    <div class="container d-flex justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-4 text-center">会員登録確認</h1>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">登録内容の確認</h5>
+                    <p class="card-text">氏名：「<?php echo $name;?>」さん</p>
+                    <p class="card-text">メールアドレス：「<?php echo $email;?>」</p>
+                    <p class="card-text">電話番号：「<?php echo $tel;?>」</p>
+                    <p class="card-text">この内容で登録してもよろしいですか？</p>
+                    <form action="sign_done.php" method="post">
+                        <input type="hidden" name="name" value="<?php echo $name; ?>">
+                        <input type="hidden" name="email" value="<?php echo $email; ?>">
+                        <input type="hidden" name="tel" value="<?php echo $tel; ?>">
+                        <input type="hidden" name="pass" value="<?php echo $pass; ?>">
+                        <input type="hidden" name="token" value=<?php echo $_POST['token']; ?>>
+                        <input type="submit" value="登録" class="btn btn-primary">
+                        <a href="sign.php" class="btn btn-secondary">戻る</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

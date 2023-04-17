@@ -16,41 +16,17 @@ session_destroy();
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>ログアウト画面</title>
-  <style>
-    .container {
-      background-color: #f1c40f;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-      margin: 0 auto;
-      max-width: 800px;
-    }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 30px;
-    }
-    p {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-    a {
-      color: #fff;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-    a:hover {
-      color: #333;
-      background-color: #fff;
-    }
-  </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container d-flex flex-column justify-content-center align-items-center">
     <p>ログアウトしました</p>
     <p><a href="sign_login.html">トップ画面に戻る</a></p>
   </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
 <?php exit(); ?>

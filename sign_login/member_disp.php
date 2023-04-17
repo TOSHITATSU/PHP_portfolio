@@ -19,18 +19,10 @@ if (!isset($_SESSION['login_id'])) {
 
 $login_id=$_SESSION['login_id'];
 
-$config = require_once 'config.php';
-$dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8";
-$options = array(
-    PDO::ATTR_EMULATE_PREPARES => false,
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
-    PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
-);
+require_once 'config.php';
 
 try {
-  $pdo = new PDO($dsn, $config['user'], $config['dbpass'], $options);
+  $pdo = DatabaseConnection::getConnection();
   $stmt = $pdo->prepare("SELECT `name`,`email`,`tel` FROM `members` WHERE `id`=:id");
   $stmt->bindParam(':id', $login_id);
   $stmt->execute();
@@ -56,51 +48,18 @@ try {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>アカウント情報参照画面</title>
-  <style>
-    .container {
-      background-color: #f8f8f8;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
-      margin-top: 50px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-    input[type=button] {
-      font-size: 1rem;
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    input[type=button]:hover {
-      background-color: #3e8e41;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
-  <div class="container">
-    <h1>会員様情報参照</h1>
-    <p>氏名：「<?php echo $member_name;?>」</p>
-    <p>メールアドレス：「<?php echo $member_email;?>」</p>
-    <p>電話番号：「<?php echo $member_tel;?>」</p>
-    <form>
-    <input type="button" onclick="history.back()" value="戻る">
-    </form>
+  <div class="container text-center">
+      <h1 class="mb-4">会員様情報参照</h1>
+      <p>氏名：「<?php echo $member_name;?>」</p>
+      <p>メールアドレス：「<?php echo $member_email;?>」</p>
+      <p>電話番号：「<?php echo $member_tel;?>」</p>
+      <button class="btn btn-primary" onclick="history.back()">戻る</button>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
