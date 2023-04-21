@@ -13,15 +13,19 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $tel = $_POST['tel'];
 $pass = $_POST['pass'];
+require_once(__DIR__ . '/class/connect.php');
 
 try {
-    require_once 'config.php';
-    $pdo = DatabaseConnection::getConnection();
-    // メールアドレスがすでに登録済みかどうかを確認する
-    $stmt = $pdo->prepare('SELECT COUNT(*) FROM `members` WHERE `email` = :email');
-    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-    $stmt->execute();
-    $count = $stmt->fetchColumn();
+    // DatabaseConnectionクラスのインスタンスを作成
+    $db = new DatabaseConnection(DB_HOST, DB_NAME, DB_USER, DB_PASS);
+    $db->connect();
+
+    // クエリを実行する
+    $query = "SELECT COUNT(*) FROM `members` WHERE `email` = :email";
+    $params = [':email' => $email];
+    $result = $db->executeSelectQuery($query, $params);
+    $count = $result[0]['COUNT(*)'];
+
     if ($count > 0) {
         // 登録済みの場合はエラーを返す
         echo '入力されたメールアドレスはすでに登録されています。';
@@ -29,14 +33,9 @@ try {
         exit();
     }
 
-    $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
-    $stmt = $pdo->prepare('INSERT INTO `members` (`name`,`email`,`tel`,`pass`) VALUES (:name,:email,:tel,:pass)');
-    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-    $stmt->bindParam(':tel', $tel, PDO::PARAM_STR);
-    $stmt->bindParam(':pass', $hashed_pass, PDO::PARAM_STR);
-    $stmt->execute();
-    $pdo= null;
+    // テーブルにデータを挿入する
+    $table = 'members';
+    $db->insertData($table, $name, $email, $tel, $pass);
 
 } catch (PDOException $e) {
     // エラーハンドリング

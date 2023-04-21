@@ -14,7 +14,7 @@ if (!isset($_POST['token']) && !hash_equals($_SESSION['token'], $_POST['token'])
 $errors=array();
 if($_SERVER['REQUEST_METHOD']!=='POST' && !isset($_POST['token'])):
     exit("直接アクセス禁止");
-endif;  
+endif;
 if(isset($_POST['name']) && strlen($_POST['name'])):
     $name=htmlspecialchars($_POST['name'],ENT_QUOTES,'UTF-8');
 else:

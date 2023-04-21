@@ -19,19 +19,18 @@ if (!isset($_SESSION['login_id'])) {
 
 $login_id=$_SESSION['login_id'];
 
-require_once 'config.php';
+require_once(__DIR__ . '/class/connect.php');
 
 try {
-  $pdo = DatabaseConnection::getConnection();
-  $stmt = $pdo->prepare("SELECT `name`,`email`,`tel` FROM `members` WHERE `id`=:id");
-  $stmt->bindParam(':id', $login_id);
-  $stmt->execute();
-  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-  $member_name=$rec['name'];
-  $member_email=$rec['email'];
-  $member_tel=$rec['tel'];
-  $stmt = null;
-  $pdo = null;
+  // DatabaseConnectionクラスのインスタンスを作成
+  $db = new DatabaseConnection(DB_HOST, DB_NAME, DB_USER, DB_PASS);
+  $db->connect();
+  $query = "SELECT `name`,`email`,`tel` FROM `members` WHERE `id` = :id";
+  $params = [':id' => $login_id];
+  $rec = $db->executeSelectQuery($query, $params);
+  $member_name=$rec[0]['name'];
+  $member_email=$rec[0]['email'];
+  $member_tel=$rec[0]['tel'];
   
 } catch (PDOException $e) {
   echo 'Connection failed: ' . $e->getMessage();

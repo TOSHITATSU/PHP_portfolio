@@ -20,7 +20,7 @@
           <label for="show-password" class="form-label">パスワード：</label>
           <div class="input-group">
             <input type="password" id="show-password" name="pass" class="form-control" placeholder="パスワード入力欄">
-            <button class="btn btn-outline-secondary" type="button" onclick="showPassword()">表示</button>
+            <button class="btn btn-outline-secondary" type="button" data-toggle-pass="show-password">表示</button>
           </div>
         </div>
         <?php
@@ -34,7 +34,12 @@
       </form>
     </div>
 
-  <script src="show_pass_login.js"></script>
+  <!-- クラスをインスタンス化しPasswordLoginTogglerクラスを呼び出し -->
+  <script src="class/show_pass.js"></script>
+  <script>
+    const passwordToggler2 = new PasswordLoginToggler("show-password");
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
