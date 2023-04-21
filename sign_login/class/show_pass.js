@@ -1,43 +1,45 @@
 'use strict';
 
-class PasswordSignToggler {
-  constructor(id1, id2) {
-    this.pass1 = document.getElementById(id1);
-    this.pass2 = document.getElementById(id2);
-    this.checkbox = document.querySelector(`[data-toggle-pass="${id1}"]`);
-    
-    this.checkbox.addEventListener("click", () => {
-      this.toggle();
+class PasswordToggler {
+  constructor(passwordInputId, toggleButtonId) {
+    this.passwordInput = document.getElementById(passwordInputId);
+    this.toggleButton = document.getElementById(toggleButtonId);
+
+    this.toggleButton.addEventListener("click", () => {
+      if (this.passwordInput.type === "password") {
+        this.passwordInput.type = "text";
+        this.toggleButton.textContent = "非表示";
+      } else {
+        this.passwordInput.type = "password";
+        this.toggleButton.textContent = "表示";
+      }
     });
   }
-  
-  toggle() {
-    if (this.pass1 !== null && this.pass2 !== null) {
-      if (this.checkbox.checked) {
-        this.pass1.type = "text";
-        this.pass2.type = "text";
-      } else {
-        this.pass1.type = "password";
-        this.pass2.type = "password";
-      }
-    }
+}
+
+class PasswordSignToggler {
+  constructor(passwordInputId, passwordSignInputId) {
+    this.passwordToggler = new PasswordToggler(passwordInputId, "toggle-password");
+    this.passwordSignToggler = new PasswordToggler(passwordSignInputId, "toggle-password-sign");
   }
 }
+
 
 
 class PasswordLoginToggler {
-  constructor(id) {
-    this.pass = document.getElementById(id);
-    this.checkbox = document.querySelector(`[data-toggle-pass="${id}"]`);
+  constructor(passwordInputId) {
+    this.passwordInput = document.getElementById(passwordInputId);
+    this.toggleButton = document.getElementById("toggle-password");
 
-    this.checkbox.addEventListener("click", () => this.toggle());
-  }
-
-  toggle() {
-    if (this.checkbox.checked) {
-      this.pass.type = "text";
-    } else {
-      this.pass.type = "password";
-    }
+    this.toggleButton.addEventListener("click", () => {
+      if (this.passwordInput.type === "password") {
+        this.passwordInput.type = "text";
+        this.toggleButton.textContent = "非表示";
+      } else {
+        this.passwordInput.type = "password";
+        this.toggleButton.textContent = "表示";
+      }
+    });
   }
 }
+

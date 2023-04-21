@@ -17,10 +17,10 @@
           <input type="email" name="email" class="form-control" placeholder="メールアドレス入力欄">
         </div>
         <div class="mb-3">
-          <label for="show-password" class="form-label">パスワード：</label>
+          <label for="show-password" class="form-label">パスワード：（半角英数字を含めた6文字以上16文字以内）</label>
           <div class="input-group">
-            <input type="password" id="show-password" name="pass" class="form-control" placeholder="パスワード入力欄">
-            <button class="btn btn-outline-secondary" type="button" data-toggle-pass="show-password">表示</button>
+            <input type="password" id="show-password" name="pass" class="form-control" placeholder="パスワード入力">
+            <button class="btn btn-outline-secondary" type="button" id="toggle-password">表示</button>
           </div>
         </div>
         <?php
@@ -35,7 +35,7 @@
     </div>
 
   <!-- クラスをインスタンス化しPasswordLoginTogglerクラスを呼び出し -->
-  <script src="class/show_pass.js"></script>
+  <script src="./class/show_pass.js"></script>
   <script>
     const passwordToggler2 = new PasswordLoginToggler("show-password");
   </script>

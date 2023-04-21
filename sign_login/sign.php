@@ -29,16 +29,17 @@
           <label for="show-password" class="form-label">パスワード：（半角英数字を含めた6文字以上16文字以内）</label>
           <div class="input-group">
             <input type="password" id="show-password" name="pass" class="form-control" placeholder="パスワード入力">
-            <button class="btn btn-outline-secondary" type="button" data-toggle-pass="show-password">表示</button>
+            <button class="btn btn-outline-secondary" type="button" id="toggle-password">表示</button>
           </div>
         </div>
         <div class="mb-3">
           <label for="show-password2" class="form-label">パスワード確認：</label>
           <div class="input-group">
             <input type="password" id="show-password2" name="pass2" class="form-control" placeholder="パスワード確認">
-            <button class="btn btn-outline-secondary" type="button" data-toggle-pass="show-password2">表示</button>
+            <button class="btn btn-outline-secondary" type="button" id="toggle-password-sign">表示</button>
           </div>
         </div>
+
         <?php
           // CSRFトークンの生成
           $token = bin2hex(random_bytes(32));
@@ -53,8 +54,10 @@
 
   <script src="./class/show_pass.js"></script>
   <script>
-    const passwordToggler = new PasswordSignToggler("show-password", "show-password2");
+    const passwordToggler = new PasswordToggler("show-password", "toggle-password");
+    const passwordSignToggler = new PasswordToggler("show-password2", "toggle-password-sign");
   </script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
