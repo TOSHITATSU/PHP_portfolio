@@ -10,56 +10,12 @@ if (!isset($_POST['token']) && !hash_equals($_SESSION['token'], $_POST['token'])
     exit;
 }
 
-//入力判定と正規表現
-$errors=array();
-if($_SERVER['REQUEST_METHOD']!=='POST' && !isset($_POST['token'])):
-    exit("直接アクセス禁止");
-endif;
-if(isset($_POST['name']) && strlen($_POST['name'])):
-    $name=htmlspecialchars($_POST['name'],ENT_QUOTES,'UTF-8');
-else:
-    $name = "";
-    $errors[]="氏名を入力して下さい";
-endif;
-if(isset($_POST['email']) && strlen($_POST['email'])):
-  $email=htmlspecialchars($_POST['email'],ENT_QUOTES,'UTF-8');
-else:
-  $email = "";
-  $errors[]="メールアドレスを入力して下さい";
-endif;
-if(isset($_POST['tel']) && strlen($_POST['tel'])):
-  $tel=htmlspecialchars($_POST['tel'],ENT_QUOTES,'UTF-8');
-else:
-  $tel = "";
-  $errors[]="電話番号を入力して下さい";
-endif;
-if(isset($_POST['pass']) && strlen($_POST['pass'])):
-    $pass=htmlspecialchars($_POST['pass'],ENT_QUOTES,'UTF-8');
-else:
-    $pass = "";
-    $errors[]="パスワードを入力して下さい";
-endif;
-if(isset($_POST['pass2']) && strlen($_POST['pass2'])):
-    $pass2=htmlspecialchars($_POST['pass2'],ENT_QUOTES,'UTF-8');
-else:
-    $pass2 = "";
-    $errors[]="確認のためのパスワードを入力してください";
-endif;
-if(!preg_match("/^[ぁ-んァ-ヶー々一-龠０-９a-zA-Z0-9]+$/u",$name)){
-    $errors[]="氏名を正しく入力して下さい";
-}
-if(!preg_match("/^\d{2,5}-?\d{1,4}-?\d{4}$/", $tel)){
-    $errors[] = "電話番号を正しく入力して下さい";
-}
-if(!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)){
-    $errors[] = "メールアドレスを正しく入力して下さい";
-}
-if(!preg_match("/^[a-zA-Z0-9]{6,16}$/",$pass) || !preg_match("/^[a-zA-Z0-9]{6,16}$/",$pass2)){
-    $errors[]="パスワードを正しく入力して下さい";
-}
-if($_POST['pass'] !== $_POST['pass2']) {
-    $errors[]="パスワードが一致しません";
-}
+require_once(__DIR__ . '/class/validate.php');
+
+// POSTデータからインスタンスを作成しバリデーション関数を実行
+$validator = new FormValidator($_POST);
+$errors = $validator->validate_sign();
+
 //エラーの数だけ表示する
 if (count($errors)) {
     echo '<ul>';
@@ -69,7 +25,13 @@ if (count($errors)) {
     echo '</ul>';
     echo '<a href="sign.php">会員登録フォームに戻る</a>';
     exit();
-}?>
+}
+
+//getterメソッドでクラス外からプロパティを使えるように
+$name = $validator->get_name();
+$email = $validator->get_email();
+$tel = $validator->get_tel();
+?>
 
 <!DOCTYPE html>
 <html lang="ja">

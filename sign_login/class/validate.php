@@ -64,41 +64,51 @@ class FormValidator {
   }
 
   public function preg_match_name() {
-    if (!preg_match("/^[ぁ-んァ-ヶー々一-龠０-９a-zA-Z0-9]+$/u",$name)) {
+    if (!preg_match("/^[ぁ-んァ-ヶー々一-龠０-９a-zA-Z0-9]+$/u",$this->name)) {
       $this->errors[] = '名前を正しく入力してください';
     }
   }
 
   public function preg_match_email() {
-    if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
+    if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $this->email)) {
       $this->errors[] = 'メールアドレスを正しく入力して下さい';
     }
   }
 
   public function preg_match_tel() {
-    if (!preg_match("/^\d{2,5}-?\d{1,4}-?\d{4}$/", $tel)) {
+    if (!preg_match("/^\d{2,5}-?\d{1,4}-?\d{4}$/", $this->tel)) {
       $this->errors[] = '電話番号を正しく入力して下さい';
     }
   }
 
   public function preg_match_pass1() {
-    if (!preg_match("/^[a-zA-Z0-9]{6,16}$/",$pass)) {
+    if (!preg_match("/^[a-zA-Z0-9]{6,16}$/",$this->pass)) {
       $this->errors[] = 'パスワードを正しく入力してください';
     }
   }
 
   public function preg_match_pass2() {
-    if (!preg_match("/^[a-zA-Z0-9]{6,16}$/",$pass2)) {
+    if (!preg_match("/^[a-zA-Z0-9]{6,16}$/",$this->pass2)) {
       $this->errors[] = '確認パスワードを正しく入力してください';
     }
   }
 
-  // usage
-  if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['token'])) {
-    exit('直接アクセス禁止');
+  public function get_name() {
+    return $this->name;
+  }
+
+  public function get_email() {
+    return $this->email;
+  }
+
+  public function get_tel() {
+    return $this->tel;
   }
 
   public function validate_sign() {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['token'])) {
+      exit('直接アクセス禁止');
+    }
     $this->validate_name();
     $this->validate_email();
     $this->validate_tel();
@@ -108,16 +118,20 @@ class FormValidator {
     $this->preg_match_name();
     $this->preg_match_email();
     $this->preg_match_tel();
-    $this->preg_match_pass();
+    $this->preg_match_pass1();
     $this->preg_match_pass2();
     return $this->errors;
   }
 
   public function validate_login() {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['token'])) {
+      exit('直接アクセス禁止');
+    }
     $this->validate_email();
     $this->validate_pass();
     $this->preg_match_email();
-    $this->preg_match_pass();
+    $this->preg_match_pass1();
+    return $this->errors;
   }
 
 }
